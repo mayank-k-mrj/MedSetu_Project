@@ -51,3 +51,6 @@ Thumbs.db
 
 ### Generated Files ###
 *.class
+
+application.properties
+application.yml
