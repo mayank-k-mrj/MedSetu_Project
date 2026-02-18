@@ -2,9 +2,8 @@ package com.MedSetu.med_setu.DTO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import java.util.Stack;
-
-public enum Role {
-    USER,
-    NGO
+public enum ValidationStatus {
+    PENDING,
+    APPROVED,
+    REJECTED
 }
