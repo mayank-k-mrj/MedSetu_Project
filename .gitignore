@@ -54,3 +54,12 @@ Thumbs.db
 
 application.properties
 application.yml
+
+# Application config
+src/main/resources/application.properties
+
+# Uploads folder
+uploads/
+
+# Vision keys
+*.json
