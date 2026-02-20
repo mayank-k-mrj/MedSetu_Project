@@ -44,12 +44,11 @@ public class MedicineEntity {
     public MedicineEntity() {
     }
 
-    public MedicineEntity(String name, LocalDate expiryDate, String batchNumber, String imageUrl, ValidationStatus validationStatus, LocalDateTime createdAt) {
+    public MedicineEntity(String name, LocalDate expiryDate, String batchNumber, String imageUrl, LocalDateTime createdAt) {
         this.name = name;
         this.expiryDate = expiryDate;
         this.batchNumber = batchNumber;
         this.imageUrl = imageUrl;
-        this.validationStatus = validationStatus;
         this.createdAt = createdAt;
     }
 

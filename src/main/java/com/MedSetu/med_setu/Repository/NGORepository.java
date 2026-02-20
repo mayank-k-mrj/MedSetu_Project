@@ -1,6 +1,7 @@
 package com.MedSetu.med_setu.Repository;
 
 import com.MedSetu.med_setu.Model.NGOEntity;
+import com.MedSetu.med_setu.Model.UsersEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,7 @@ import java.util.Optional;
 public interface NGORepository extends JpaRepository<NGOEntity, Long> {
     Optional<NGOEntity> findByLicenseno(String licenceno);
     Optional<NGOEntity> findByUserId(Long id);
+    Optional<NGOEntity> findFirstByPincode(Long pincode);
+    Optional<NGOEntity> findFirstByCity(String city);
+    Optional<NGOEntity> findByUser(UsersEntity users);
 }

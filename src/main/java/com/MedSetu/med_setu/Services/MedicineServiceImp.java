@@ -32,7 +32,7 @@ public class MedicineServiceImp implements MedicineService{
     private OCRServiceImp ocrServiceImp;
 
     @Override
-    public Boolean editDetails(MedicineEntity medicineEntity, Long id){
+    public MedicineEntity editDetails(MedicineEntity medicineEntity, Long id){
         MedicineEntity updateMedicine = medicineRepository.findById(id)
                         .orElseThrow(() -> new RuntimeException("Row with id "+id + " doesn't exists."));
 
@@ -40,10 +40,23 @@ public class MedicineServiceImp implements MedicineService{
         updateMedicine.setName(medicineEntity.getName());
         updateMedicine.setBatchNumber(medicineEntity.getBatchNumber());
         updateMedicine.setExpiryDate(medicineEntity.getExpiryDate());
-        updateMedicine.setValidationStatus(ValidationStatus.PENDING);
+
+        LocalDate today = LocalDate.now();
+        LocalDate oneMonthLater = today.plusMonths(1);
+
+        if (updateMedicine.getExpiryDate().isBefore(today)) {
+            updateMedicine.setValidationStatus(ValidationStatus.NOTVALID);
+        }
+        else if (updateMedicine.getExpiryDate().isBefore(oneMonthLater)) {
+            updateMedicine.setValidationStatus(ValidationStatus.NOTVALID);
+        }
+        else {
+            updateMedicine.setValidationStatus(ValidationStatus.VALID);
+        }
+
 
         medicineRepository.save(updateMedicine);
-        return true;
+        return updateMedicine;
     }
 
     @Override
@@ -93,7 +106,7 @@ public class MedicineServiceImp implements MedicineService{
             medicine.setName(name);
             medicine.setBatchNumber(batch);
             medicine.setExpiryDate(expiryDate);
-            medicine.setValidationStatus(ValidationStatus.PENDING);
+            medicine.setValidationStatus(ValidationStatus.VALID);
 
 
             MedicineEntity saved =  medicineRepository.save(medicine);

@@ -13,7 +13,7 @@ public interface MedicineService {
     String extractBatchNumber(String text);
     String extractExpiryDate(String text);
     LocalDate convertToLocalDate(String expiry);
-    Boolean editDetails(MedicineEntity medicineEntity, Long id);
+    MedicineEntity editDetails(MedicineEntity medicineEntity, Long id);
     List<MedicineEntity> fetchAllMeds(String username);
     void updateValidation(Long id, ValidationStatus validationStatus);
 }

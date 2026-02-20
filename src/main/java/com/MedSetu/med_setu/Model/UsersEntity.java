@@ -43,6 +43,10 @@ public class UsersEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime created_at;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UsersAddressEntity userDetails;
+
+
     public UsersEntity() {
     }
 

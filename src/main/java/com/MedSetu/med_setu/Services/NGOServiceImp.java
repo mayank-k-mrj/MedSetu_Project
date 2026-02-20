@@ -1,13 +1,18 @@
 package com.MedSetu.med_setu.Services;
 
 import com.MedSetu.med_setu.DTO.NGOResponseDTO;
+import com.MedSetu.med_setu.Model.DonationEntity;
 import com.MedSetu.med_setu.Model.NGOEntity;
 import com.MedSetu.med_setu.Model.UsersEntity;
+import com.MedSetu.med_setu.Repository.DonationRepository;
 import com.MedSetu.med_setu.Repository.NGORepository;
 import com.MedSetu.med_setu.Repository.UsersRepository;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class NGOServiceImp implements NGOService{
@@ -17,6 +22,9 @@ public class NGOServiceImp implements NGOService{
 
     @Autowired
     private NGORepository ngoRepository;
+
+    @Autowired
+    private DonationRepository donationRepository;
 
     @Override
     public Boolean createNGO(NGOEntity ngoEntity, String username) {
@@ -64,5 +72,16 @@ public class NGOServiceImp implements NGOService{
 
         ngoRepository.save(existingNgo);
         return true;
+    }
+
+    @Override
+    public List<DonationEntity> fetchAllDonations(String username){
+        UsersEntity user = usersRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found with username : "+username));
+
+        NGOEntity ngo = ngoRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new RuntimeException("NGO not found with user_id :"+user.getId()));
+
+        return donationRepository.findAllByNgoId(ngo.getId());
     }
 }

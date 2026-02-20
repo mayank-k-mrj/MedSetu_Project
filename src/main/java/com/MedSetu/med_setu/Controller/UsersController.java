@@ -1,6 +1,9 @@
 package com.MedSetu.med_setu.Controller;
 
+import com.MedSetu.med_setu.Model.UsersAddressEntity;
 import com.MedSetu.med_setu.Model.UsersEntity;
+import com.MedSetu.med_setu.Services.UsersAddServiceImp;
+import com.MedSetu.med_setu.Services.UsersAddressService;
 import com.MedSetu.med_setu.Services.UsersService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class UsersController {
 
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private UsersAddressService usersAddressService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -39,4 +45,14 @@ public class UsersController {
             return ResponseEntity.status(500).body("Data not saved!");
         }
     }
+
+    @PostMapping("/profile")
+    public ResponseEntity<?> addProfile(@RequestBody UsersAddressEntity usersAddress,
+                                        Principal principal) {
+
+        usersAddressService.addDetails(usersAddress, principal.getName());
+
+        return ResponseEntity.ok("Profile Updated");
+    }
+
 }
