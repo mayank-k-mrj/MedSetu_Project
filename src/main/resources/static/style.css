@@ -1,0 +1,200 @@
+/* 1. VARIABLES & RESET */
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --bg-color: #f0f4f8;
+    --text-dark: #333;
+    --text-gray: #666;
+    --white: #ffffff;
+    --border-color: #ddd;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* 2. SHARED LAYOUT (The Box) */
+.login-container {
+    width: 100%;
+    max-width: 900px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.login-box {
+    display: flex;
+    flex-wrap: wrap; /* Allows stacking on mobile */
+}
+
+/* 3. LEFT BLUE PANEL */
+.login-info {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-info h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.login-info p {
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Specific to Sign-Up List */
+.benefit-list {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.benefit-list li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 4. RIGHT FORM PANEL */
+.login-form {
+    flex: 1.2;
+    padding: 50px 40px;
+    min-width: 320px;
+}
+
+.login-form h3 {
+    font-size: 1.6rem;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+/* 5. FORM ELEMENTS */
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.input-group input, 
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus, 
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.173);
+}
+
+/* Role Dropdown Styling */
+select {
+    background-color: white;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+}
+
+/* 6. BUTTONS & LINKS */
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+.forgot-link, 
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+/* 7. RESPONSIVENESS */
+@media (max-width: 768px) {
+    .login-box {
+        flex-direction: column;
+    }
+    
+    .login-info {
+        padding: 30px;
+        text-align: center;
+        min-width: 100%;
+    }
+
+    .benefit-list {
+        display: none; /* Keeps mobile view clean */
+    }
+
+    .login-form {
+        padding: 40px 25px;
+        min-width: 100%;
+    }
+}
