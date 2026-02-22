@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedShetu | User Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="userDashboard.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-hand-holding-medical"></i>
+                <span>MedShetu</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active"><a href="#"><i class="fas fa-columns"></i> Overview</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-pills"></i> My Donations</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-hands-helping"></i> My Requests</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-history"></i> History</a></li>
+                <li class="nav-item logout"><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="welcome-msg">
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome back, <strong>Adarsh Yadav</strong>! Here is your activity.</p>
+                </div>
+                <button class="add-donation-btn">
+                    <i class="fas fa-plus"></i> New Donation
+                </button>
+            </header>
+
+            <section class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon blue-bg"><i class="fas fa-gift"></i></div>
+                    <div class="stat-data"><h3>14</h3><p>Donations</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red-bg"><i class="fas fa-clock"></i></div>
+                    <div class="stat-data"><h3>2</h3><p>Pending</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green-bg"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-data"><h3>12</h3><p>Approved</p></div>
+                </div>
+            </section>
+
+            <section class="activity-section">
+                <div class="section-header">
+                    <h2>Recent Medicine Donations</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Medicine Name</th>
+                                <th>Category</th>
+                                <th>Expiry Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Paracetamol 500mg</td>
+                                <td>Fever</td>
+                                <td>Oct 2026</td>
+                                <td><span class="badge approved">Approved</span></td>
+                            </tr>
+                            <tr>
+                                <td>Cetirizine</td>
+                                <td>Allergy</td>
+                                <td>Jan 2027</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

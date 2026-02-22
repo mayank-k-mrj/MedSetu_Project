@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedShetu | NGO Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="ngoDashboard.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-hospital-user"></i>
+                <span>MedShetu NGO</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active"><a href="#"><i class="fas fa-chart-pie"></i> Overview</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-check-circle"></i> Verifications</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-boxes"></i> Inventory</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-users"></i> Beneficiaries</a></li>
+                <li class="nav-item logout"><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="welcome-msg">
+                    <h1>Organization Panel</h1>
+                    <p>Manage medicine donations and verify safety standards.</p>
+                </div>
+                <div class="verification-badge">
+                    <i class="fas fa-shield-alt"></i> Verified NGO
+                </div>
+            </header>
+
+            <section class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon purple-bg"><i class="fas fa-pills"></i></div>
+                    <div class="stat-data"><h3>450</h3><p>Stock Units</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange-bg"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="stat-data"><h3>12</h3><p>Pending Verif.</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green-bg"><i class="fas fa-hand-holding-heart"></i></div>
+                    <div class="stat-data"><h3>89</h3><p>Distributions</p></div>
+                </div>
+            </section>
+
+            <section class="activity-section">
+                <div class="section-header">
+                    <h2>Pending Verification Queue</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Donor Name</th>
+                                <th>Medicine</th>
+                                <th>Expiry</th>
+                                <th>Documents</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sahil Singh</td>
+                                <td>Azithromycin</td>
+                                <td>Dec 2026</td>
+                                <td><a href="#" class="view-doc">View Image</a></td>
+                                <td>
+                                    <button class="btn-action approve">Approve</button>
+                                    <button class="btn-action reject">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Shivam Kumar</td>
+                                <td>Insulin Pen</td>
+                                <td>Aug 2026</td>
+                                <td><a href="#" class="view-doc">View Image</a></td>
+                                <td>
+                                    <button class="btn-action approve">Approve</button>
+                                    <button class="btn-action reject">Reject</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
