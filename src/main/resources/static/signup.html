@@ -16,6 +16,7 @@
                     <li>✓ Donate surplus medicine</li>
                     <li>✓ Help low-income families</li>
                     <li>✓ Reduce medical waste</li>
+                    <li>✓ **NGOs:** Connect donors with recipients</li>
                     <li>✓ Track your social impact</li>
                 </ul>
             </div>
@@ -27,7 +28,7 @@
                 <form action="/register" method="POST">
                     <div class="input-row">
                         <div class="input-group">
-                            <label for="fullname">Full Name</label>
+                            <label for="fullname">Full Name / NGO Name</label>
                             <input type="text" id="fullname" name="fullname" placeholder="Enter Name" required>
                         </div>
                     </div>
@@ -41,8 +42,9 @@
                         <label for="role">I want to...</label>
                         <select id="role" name="role" required>
                             <option value="" disabled selected>Select your role</option>
-                            <option value="donor">Donate Medicine</option>
-                            <option value="recipient">Receive Medicine</option>
+                            <option value="donor">Donate Medicine (Donor)</option>
+                            <option value="recipient">Receive Medicine (Recipient)</option>
+                            <option value="ngo">Register as NGO (Manage Donors & Recipients)</option>
                         </select>
                     </div>
                     

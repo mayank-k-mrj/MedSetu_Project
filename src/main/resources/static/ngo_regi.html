@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedShetu | NGO Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="ngo_style.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    
+    <div class="registration-card">
+        <div class="form-header">
+            <div class="logo">
+                <i class="fas fa-hand-holding-medical"></i>
+                <span>MedShetu</span>
+            </div>
+            <h1>NGO Registration</h1>
+            <p>Verification is required to ensure medicine safety.</p>
+        </div>
+
+        <form>
+            <div class="input-section">
+                <label><i class="fas fa-hospital"></i> NGO Name</label>
+                <input type="text" placeholder="Official Organization Name" required>
+            </div>
+
+            <div class="input-section">
+                <label><i class="fas fa-map-marker-alt"></i> Address</label>
+                <input type="text" placeholder="Headquarters Street Address" required>
+            </div>
+
+            <div class="row">
+                <div class="input-section">
+                    <label>City</label>
+                    <input type="text" placeholder="e.g. Gorakhpur" required>
+                </div>
+                <div class="input-section">
+                    <label>Pincode</label>
+                    <input type="text" maxlength="6" placeholder="123456" required>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <label><i class="fas fa-id-card"></i> License Number</label>
+                <input type="text" placeholder="Reg. No (e.g., 12-B / 80-G)" required>
+            </div>
+
+            <div class="file-upload-box">
+                <label for="file-input">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Upload Legal Documents (PDF/Docs)</span>
+                    <small>Maximum size: 5MB</small>
+                </label>
+                <input type="file" id="file-input" hidden required>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Complete Registration <i class="fas fa-arrow-right"></i>
+            </button>
+        </form>
+        
+        <div class="footer-link">
+            Already registered? <a href="#">Login here</a>
+        </div>
+    </div>
+</body>
+</html>
