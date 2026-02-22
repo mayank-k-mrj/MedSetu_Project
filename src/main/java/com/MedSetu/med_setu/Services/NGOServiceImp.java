@@ -38,6 +38,8 @@ public class NGOServiceImp implements NGOService{
             ngoEntity.setUser(user);
 
             ngoRepository.save(ngoEntity);
+            user.setProfilecomplete(true);
+            usersRepository.save(user);
             return true;
         }
         catch (Exception e){

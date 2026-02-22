@@ -43,6 +43,9 @@ public class UsersEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime created_at;
 
+    @Column(name = "profilecomplete")
+    private Boolean profilecomplete = false;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UsersAddressEntity userDetails;
 
@@ -112,5 +115,13 @@ public class UsersEntity {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    public Boolean getProfilecomplete() {
+        return profilecomplete;
+    }
+
+    public void setProfilecomplete(Boolean profilecomplete) {
+        this.profilecomplete = profilecomplete;
     }
 }

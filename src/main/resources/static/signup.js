@@ -51,6 +51,7 @@ async function userRegistration(event){
             body: JSON.stringify(Data)
         });
         if(Response.ok){
+            alert("Account Created!");
             console.log("Data saved successfully.");
             window.open("/login");
         }
