@@ -75,3 +75,21 @@
     font-size: 14px;
     margin-top: auto;
 }
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    min-height: 100vh;       /* Takes full height of the screen */
+    background: #f4f7f6;     /* Keeps a clean look */
+}
+
+.selection-wrapper {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Centers children inside the wrapper */
+}

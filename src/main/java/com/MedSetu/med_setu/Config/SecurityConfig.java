@@ -21,10 +21,19 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/register").permitAll()
+                        .requestMatchers("/users/register",
+                                "/login",
+                                "/style.css",
+                                "/signup.js"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(withDefaults());
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/signup.html", true)
+                        .permitAll()
+                );
 
         return http.build();
     }

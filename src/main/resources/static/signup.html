@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+<<<<<<< HEAD
     <div class="login-container">
         <div class="login-box">
             <div class="login-info">
@@ -20,24 +21,27 @@
                     <li>✓ Track your social impact</li>
                 </ul>
             </div>
+=======
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-info">
+            <h2>Join MedShetu</h2>
+            <ul class="benefit-list">
+                <li>✓ Donate surplus medicine</li>
+                <li>✓ Help low-income families</li>
+                <li>✓ Reduce medical waste</li>
+                <li>✓ Track your social impact</li>
+            </ul>
+        </div>
+>>>>>>> 4dbbd093b8752bc84114a0b44a72cbdaa2ed3f47
 
-            <div class="login-form">
-                <h3>Create Account</h3>
-                <p class="subtitle">Join our community and start making a difference.</p>
-                
-                <form action="/register" method="POST">
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label for="fullname">Full Name / NGO Name</label>
-                            <input type="text" id="fullname" name="fullname" placeholder="Enter Name" required>
-                        </div>
-                    </div>
+        <div class="login-form">
+            <h3>Create Account</h3>
+            <p class="subtitle">Join our community and start making a difference.</p>
 
-                    <div class="input-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="name@example.com" required>
-                    </div>
+            <form action="/register" method="POST">
 
+<<<<<<< HEAD
                     <div class="input-group">
                         <label for="role">I want to...</label>
                         <select id="role" name="role" required>
@@ -53,13 +57,55 @@
                             <input type="password" id="password" name="password" placeholder="Enter Password" required>
                         </div>
                     </div>
+=======
+                <div class="input-group">
+                    <label for="fullname">Full Name<sup style="color: red;">*</sup></label>
+                    <input type="text" id="fullname" name="fullname"
+                           placeholder="Enter Name" required>
+                </div>
+>>>>>>> 4dbbd093b8752bc84114a0b44a72cbdaa2ed3f47
 
-                    <button type="submit" class="login-btn">Create Account</button>
-                </form>
+                <div class="input-group">
+                    <label for="email">Email Address<sup style="color: red;">*</sup></label>
+                    <input type="email" id="email" name="email"
+                           placeholder="name@example.com" required>
+                </div>
 
-                <p class="register-link">Already have an account? <a href="login.html">Sign In</a></p>
-            </div>
+                <div class="input-group">
+                    <label for="phone">Phone Number<sup style="color: red;">*</sup></label>
+                    <input type="tel" id="phone" name="phone"
+                           placeholder="Enter 10-digit mobile number"
+                           pattern="[0-9]{10}"
+                           maxlength="10"
+                           required>
+                </div>
+
+                <div class="input-group">
+                    <label for="role">I want to...<sup style="color: red;">*</sup></label>
+                    <select id="role" name="role" required>
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="USER">Donate Medicine</option>
+                        <option value="NGO">Receive Medicine</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password<sup style="color: red;">*</sup></label>
+                    <input type="password" id="password" name="password"
+                           placeholder="Enter Password" required>
+                </div>
+
+                <button type="submit" class="login-btn">Create Account</button>
+            </form>
+
+            <!-- 🔥 Correct Spring Link -->
+            <p class="register-link">
+                Already have an account?
+                <a href="/login">Sign In</a>
+            </p>
         </div>
     </div>
+</div>
 </body>
+<script src="signup.js"></script>
 </html>

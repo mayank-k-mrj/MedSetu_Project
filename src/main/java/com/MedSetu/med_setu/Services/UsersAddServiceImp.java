@@ -28,5 +28,7 @@ public class UsersAddServiceImp implements UsersAddressService{
         usersAddress1.setPincode(usersAddress.getPincode());
 
         usersAddressRepository.save(usersAddress1);
+        users.setProfilecomplete(true);
+        usersRepository.save(users);
     }
 }
