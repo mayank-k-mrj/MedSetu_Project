@@ -1,0 +1,77 @@
+/* Selection Page Specific Styles */
+.selection-wrapper {
+    text-align: center;
+    max-width: 900px;
+    width: 95%;
+}
+
+.header {
+    margin-bottom: 50px;
+}
+
+.logo-icon {
+    font-size: 50px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.card-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap; /* Good for mobile responsiveness */
+}
+
+.role-card {
+    background: white;
+    flex: 1;
+    min-width: 300px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.role-card:hover {
+    transform: translateY(-10px);
+    border-color: #007bff;
+    box-shadow: 0 15px 40px rgba(0, 123, 255, 0.15);
+}
+
+.icon-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.user-bg { background: #e3f2fd; color: #007bff; }
+.ngo-bg { background: #e8f5e9; color: #2e7d32; }
+
+.role-card h3 {
+    margin-bottom: 15px;
+    color: #2d3436;
+}
+
+.role-card p {
+    font-size: 14px;
+    color: #636e72;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.arrow-link {
+    font-weight: 600;
+    color: #007bff;
+    font-size: 14px;
+    margin-top: auto;
+}
