@@ -1,0 +1,19 @@
+[33mb4432ee[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/frontend[m[33m)[m complete frontend role architecture with Admin Dashboard
+[33m1d923f4[m fixing page jump buttons
+[33ma65bba5[m Resolved merge conflicts in login and signup pages
+[33mfe7bc89[m adding css for selection page
+[33m4dbbd09[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Made some changes in login and signup background
+[33mbcaa8fb[m Added NGO registration page
+[33m9d2d927[m Resolved merge conflict
+[33m4f823d6[m Added .js to make signup work
+[33m673c372[m created ngo registration and account selection page in fortend
+[33ma19caf9[m Added frontend pages and removed old file
+[33mabd3eeb[m Added a file in static folder
+[33mb14b3e0[m Developed crutial features and completed the working structure.
+[33mfae31f9[m Removed sensitive files from tracking
+[33m8cde99b[m Removed application.properties from tracking
+[33m7168933[m Added featuers to upload medicine photo for auto filling medicine data and more like editing data, fetching.
+[33mc89f63e[m Added Featuers for NGO to register.
+[33meb780f5[m Merge branch 'main' of https://github.com/mayank-k-mrj/MedSetu_Project
+[33m5c912c1[m Intitail Commit - MedSetu with working User registration and login
+[33m7300426[m Initial commit

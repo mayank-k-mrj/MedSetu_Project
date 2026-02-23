@@ -16,6 +16,9 @@ public class UsersAddressEntity {
     @Column(nullable = false)
     private Long pincode;
 
+    @Column(nullable = false)
+    private String address;
+
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private UsersEntity user;
@@ -23,9 +26,11 @@ public class UsersAddressEntity {
     public UsersAddressEntity() {
     }
 
-    public UsersAddressEntity(Long pincode, String city) {
+    public UsersAddressEntity(Long pincode, String city, String address) {
         this.pincode = pincode;
         this.city = city;
+        this.address = address;
+
     }
 
     public Long getId() {
@@ -58,5 +63,13 @@ public class UsersAddressEntity {
 
     public void setUser(UsersEntity user) {
         this.user = user;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

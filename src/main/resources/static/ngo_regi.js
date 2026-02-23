@@ -55,6 +55,7 @@ async function saveInfo(event){
     });
     if(Response.ok){
         console.log("NGO data successfully saved.");
+        window.location.href = "ngoDashboard.html";
     }
     else{
         console.log("Data not saved something went wrong.");

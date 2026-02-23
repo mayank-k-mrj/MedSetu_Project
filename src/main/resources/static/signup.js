@@ -1,46 +1,38 @@
 let fullname = document.querySelector('#fullname');
 let email = document.querySelector('#email');
 let contact = document.querySelector('#phone');
-let selectedRole = document.querySelector('#role');
 let userPassword = document.querySelector('#password');
 let submit = document.querySelector('.login-btn');
 
 const form = document.querySelector("form");
+
+let cards = document.querySelectorAll('.role-card');
 
 let urlMain = "/users";
 let urlActive = "/activeuser";
 let urlReg = "/register";
 let urlProf = "/profile";
 
-//let active_user;
-
-//Fetching user for further uses
-
-//getUser();
-//
-//async function getUser(){
-//    const Response = await fetch(urlMain + urlActive);
-//    if (Response.ok){
-//        let user = await Response.json();
-//        console.log(user);
-//        active_user = user.username;
-//        console.log(active_user);
-//    }
-//    else{
-//    console.log("Something went wrong!");
-//    }
-//}
-
+cards.forEach(card => {
+    card.addEventListener('click', function(e){
+        e.preventDefault();
+        let cardValue = e.currentTarget.dataset.role;
+        localStorage.setItem("cardValue", cardValue);
+        console.log()
+        window.location.href = "signup.html";
+    })
+})
 
 async function userRegistration(event){
-    if(fullname != null && email != null && contact != null && userPassword != null && selectedRole != null){
+    let roleCard = localStorage.getItem("cardValue");
+    if(fullname != null && email != null && contact != null && userPassword != null && roleCard != null){
     event.preventDefault();
         const Data = {
             name: fullname.value,
             username: email.value,
             phone: contact.value,
             password: userPassword.value,
-            role: selectedRole.value
+            role: roleCard
         }
 
         let Response = await fetch(urlMain + urlReg, {
@@ -58,6 +50,9 @@ async function userRegistration(event){
         else{
             console.log("Data not saved something went wrong.");
         }
+    }
+    else{
+        alert("All fields required");
     }
 }
 

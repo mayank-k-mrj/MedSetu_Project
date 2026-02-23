@@ -93,4 +93,25 @@
         </main>
     </div>
 </body>
+<script>
+    async function getUserProf(){
+        let profileStat;
+        const Response = await fetch("/users/activeuser");
+        if (Response.ok){
+            let user = await Response.json();
+            console.log(user);
+            profileStat = user.profilecomplete;
+        }
+        else{
+        console.log("Something went wrong!");
+        }
+        if(!profileStat){
+            setTimeout(() => {
+                window.location.href = "ngo_regi.html";
+                }, 1000);
+            }
+    }
+    // page load hote hi chale
+    window.addEventListener("DOMContentLoaded", getUserProf);
+</script>
 </html>

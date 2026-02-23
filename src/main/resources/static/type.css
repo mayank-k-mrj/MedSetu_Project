@@ -1,3 +1,7 @@
+*{
+    font-family: 'Inter', sans-serif;
+}
+
 /* Selection Page Specific Styles */
 .selection-wrapper {
     text-align: center;

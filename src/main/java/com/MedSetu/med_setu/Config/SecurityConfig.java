@@ -17,21 +17,23 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomSuccessHandler successHandler) throws Exception{
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users/register",
                                 "/login",
-                                "/style.css",
-                                "/signup.js"
+                                "/*.css",
+                                "/signup.js",
+                                "/signup.html",
+                                "/type.html"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/signup.html", true)
+                        .successHandler(successHandler)
                         .permitAll()
                 );
 

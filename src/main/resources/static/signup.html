@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join MedSetu | Sign Up</title>
+    <title>Join MedShetu | Sign Up</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-info">
-                <h2>Join MedSetu</h2>
-                <ul class="benefit-list">
-                    <li>✓ Donate surplus medicine</li>
-                    <li>✓ Help low-income families</li>
-                    <li>✓ Reduce medical waste</li>
-                    <li>✓ **NGOs:** Connect donors with recipients</li>
-                    <li>✓ Track your social impact</li>
-                </ul>
-            </div>
-
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-info">
+            <h2>Join MedShetu</h2>
+            <ul class="benefit-list">
+                <li>✓ Donate surplus medicine</li>
+                <li>✓ Help low-income families</li>
+                <li>✓ Reduce medical waste</li>
+                <li>✓ Track your social impact</li>
+            </ul>
+        </div>
 
         <div class="login-form">
             <h3>Create Account</h3>
@@ -28,29 +26,11 @@
 
             <form action="/register" method="POST">
 
-
-                    <div class="input-group">
-                        <label for="role">I want to...</label>
-                        <select id="role" name="role" required>
-                            <option value="" disabled selected>Select your role</option>
-                            <option value="donor">Donate Medicine (Donor)</option>
-                            <option value="recipient">Receive Medicine (Recipient)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="Enter Password" required>
-                        </div>
-                    </div>
-
                 <div class="input-group">
                     <label for="fullname">Full Name<sup style="color: red;">*</sup></label>
                     <input type="text" id="fullname" name="fullname"
                            placeholder="Enter Name" required>
                 </div>
-
 
                 <div class="input-group">
                     <label for="email">Email Address<sup style="color: red;">*</sup></label>
@@ -68,15 +48,6 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="role">I want to...<sup style="color: red;">*</sup></label>
-                    <select id="role" name="role" required>
-                        <option value="" disabled selected>Select your role</option>
-                        <option value="USER">Donate Medicine</option>
-                        <option value="NGO">Receive Medicine</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
                     <label for="password">Password<sup style="color: red;">*</sup></label>
                     <input type="password" id="password" name="password"
                            placeholder="Enter Password" required>
@@ -88,7 +59,7 @@
             <!-- 🔥 Correct Spring Link -->
             <p class="register-link">
                 Already have an account?
-                <a href="login.html">Sign In</a>
+                <a href="/login">Sign In</a>
             </p>
         </div>
     </div>
