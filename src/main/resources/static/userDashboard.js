@@ -46,7 +46,6 @@ async function fetchAllMedicines(){
         const lastFour = medicines.slice(-4);
         for (let med of lastFour) {
 
-            // ----- Status fetch fix -----
             const res2 = await fetch("/medicine/" + med.id + "/fetchone");
 
             if(res2.ok){
