@@ -30,7 +30,7 @@ public class MedicineController {
 
     //Uploads image for OCR(Image reading).
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadMedicine(@RequestParam("file") MultipartFile file, Principal principal){
+    public ResponseEntity<MedicineEntity> uploadMedicine(@RequestParam("file") MultipartFile file, Principal principal){
         String username = principal.getName();
 
         MedicineEntity saved =  medicineService.saveMedicine(file, username);

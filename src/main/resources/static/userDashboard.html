@@ -30,7 +30,7 @@
                     <h1>Dashboard Overview</h1>
                     <p>Welcome back, <strong>Adarsh Yadav</strong>! Here is your activity.</p>
                 </div>
-                <button class="add-donation-btn">
+                <button class="add-donation-btn" id="donation">
                     <i class="fas fa-plus"></i> New Donation
                 </button>
             </header>
@@ -104,5 +104,11 @@
     }
     // page load hote hi chale
     window.addEventListener("DOMContentLoaded", getUserProf);
+
+    let donationBtn = document.querySelector('#donation');
+
+    donationBtn.addEventListener('click', () => {
+    window.location.href = "newDonation.html";
+})
 </script>
 </html>
