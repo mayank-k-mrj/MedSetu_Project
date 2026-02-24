@@ -26,8 +26,14 @@ public class MedicineController {
     private DonationService donationService;
     
     @GetMapping("/{id}/fetchone")
-    public Optional<DonationEntity> fetchOneStatus(@PathVariable Long id){
+    public DonationEntity fetchOneStatus(@PathVariable Long id){
         return donationService.fetchStatus(id);
+    }
+
+    @GetMapping("/fetchallStats")
+    public List<DonationEntity> fetchAllStats(Principal principal){
+        String username = principal.getName();
+        return donationService.fetchAllStatus(username);
     }
 
     @GetMapping("/fetchall")

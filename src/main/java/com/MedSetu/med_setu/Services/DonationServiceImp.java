@@ -8,6 +8,8 @@ import com.MedSetu.med_setu.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,19 +31,26 @@ public class DonationServiceImp implements DonationService{
     private UsersAddressRepository usersAddressRepository;
 
     @Override
-    public Optional<DonationEntity> fetchStatus(Long id){
-            MedicineEntity medicine = medicineRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("No row Existing in medicine table with id : "+id));
+    public DonationEntity fetchStatus(Long id){
+        MedicineEntity medicine = medicineRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Medicine not found with id: " + id)
+                );
 
-            Optional<DonationEntity> stat = donationRepository.findByMedicine(medicine);
+        return donationRepository.findByMedicine(medicine)
+                .orElseThrow(() ->
+                        new RuntimeException("Donation not found for this medicine")
+                );
+    }
 
-            if (!stat.isEmpty()){
-                return stat;
-            }
-            else{
-                throw new RuntimeException("Something went wrong with status extraction");
-            }
+    @Override
+    public List<DonationEntity> fetchAllStatus(String username){
+        UsersEntity users = usersRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found with username : "+username));
 
+        List<DonationEntity> donation = donationRepository.findAllByDonorUsername(username);
+
+        return donation;
     }
 
     @Override
