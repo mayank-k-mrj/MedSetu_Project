@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Medicine | MedShetu</title>
+    <link rel="stylesheet" href="newDonation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <i class="fas fa-hand-holding-medical logo-icon"></i>
+                <h2>MedSetu</h2>
+                <p>Helping hands, healing hearts.</p>
+            </div>
+
+            <form id="donationForm">
+                <div class="input-group">
+                    <label>Medicine Name</label>
+                    <input type="text" placeholder="Enter medicine name" required>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label>Expiry Date</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Batch No.</label>
+                        <input type="text" placeholder="B-12345" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Upload Medicine Image</label>
+                    <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p id="fileName">Click to upload photo</p>
+                        <input type="file" id="fileInput" hidden accept="image/*" onchange="updateFileName()">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <span>Confirm Donation</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function updateFileName() {
+            const input = document.getElementById('fileInput');
+            const fileName = document.getElementById('fileName');
+            if (input.files.length > 0) {
+                fileName.textContent = input.files[0].name;
+                fileName.style.color = "#2ecc71";
+            }
+        }
+    </script>
+</body>
+</html>
