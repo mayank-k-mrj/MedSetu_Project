@@ -26,6 +26,7 @@ public class UsersAddServiceImp implements UsersAddressService{
         usersAddress1.setUser(users);
         usersAddress1.setCity(usersAddress.getCity());
         usersAddress1.setPincode(usersAddress.getPincode());
+        usersAddress1.setAddress(usersAddress.getAddress());
 
         usersAddressRepository.save(usersAddress1);
         users.setProfilecomplete(true);

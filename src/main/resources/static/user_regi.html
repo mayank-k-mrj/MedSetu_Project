@@ -218,33 +218,6 @@
     </form>
 </div>
 
-<script>
-    const form = document.getElementById('userForm');
-    const btn = document.getElementById('submitBtn');
-    const btnText = btn.querySelector('.btn-text');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Start Animation
-        btn.classList.add('loading');
-        
-        // Simulate a network delay (2 seconds)
-        setTimeout(() => {
-            btn.classList.remove('loading');
-            btn.classList.add('success');
-            btnText.innerHTML = "✓ Updated Succesfully!";
-            
-            // Optional: Reset button after 3 seconds
-            setTimeout(() => {
-                btn.classList.remove('success');
-                btnText.innerHTML = "Update";
-                form.reset();
-            }, 1000);
-            
-        }, 500);
-    });
-</script>
-
+<script src="user_regi.js"></script>
 </body>
 </html>

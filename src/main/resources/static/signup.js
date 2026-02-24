@@ -45,7 +45,7 @@ async function userRegistration(event){
         if(Response.ok){
             alert("Account Created!");
             console.log("Data saved successfully.");
-            window.open("/login");
+            window.location.href = "/login";
         }
         else{
             console.log("Data not saved something went wrong.");
