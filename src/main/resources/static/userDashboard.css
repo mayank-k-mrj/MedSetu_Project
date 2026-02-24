@@ -114,7 +114,7 @@ body { background: var(--body-bg); color: var(--text-main); }
 }
 
 .blue-bg { background: #e3f2fd; color: #007bff; }
-.red-bg { background: #ffebee; color: #d32f2f; }
+.red-bg { background: #f7efe7; color: #ec7a1c; }
 .green-bg { background: #e8f5e9; color: #2e7d32; }
 
 /* Table Section */
