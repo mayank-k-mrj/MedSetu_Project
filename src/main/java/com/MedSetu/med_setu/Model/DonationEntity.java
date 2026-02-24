@@ -20,6 +20,7 @@ public class DonationEntity {
     @Column(nullable = false)
     private Status status;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne
     @JoinColumn(name = "medicine_id", nullable = false)
     private MedicineEntity medicine;

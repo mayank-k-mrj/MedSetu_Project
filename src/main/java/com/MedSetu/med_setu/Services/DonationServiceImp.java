@@ -8,6 +8,8 @@ import com.MedSetu.med_setu.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DonationServiceImp implements DonationService{
 
@@ -25,6 +27,22 @@ public class DonationServiceImp implements DonationService{
 
     @Autowired
     private UsersAddressRepository usersAddressRepository;
+
+    @Override
+    public Optional<DonationEntity> fetchStatus(Long id){
+            MedicineEntity medicine = medicineRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("No row Existing in medicine table with id : "+id));
+
+            Optional<DonationEntity> stat = donationRepository.findByMedicine(medicine);
+
+            if (!stat.isEmpty()){
+                return stat;
+            }
+            else{
+                throw new RuntimeException("Something went wrong with status extraction");
+            }
+
+    }
 
     @Override
     public Boolean createRow(MedicineEntity medicine, String username){
