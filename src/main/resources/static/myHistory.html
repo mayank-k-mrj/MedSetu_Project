@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History - MedSetu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="myHistory.css">
+</head>
+<body>
+
+<div class="history-container">
+    <div class="history-header">
+        <h1>Activity History</h1>
+        <div class="history-filters">
+           <a href="#"> <button class="filter-btn active" >All</button></a>
+            <a href="myDonations.html"><button class="filter-btn">Donations</button></a>
+            <a href="myReq.html"><button class="filter-btn">Requests</button></a>
+        </div>
+    </div>
+
+    <div class="timeline">
+        
+        <div class="timeline-group">
+            <span class="timeline-date">Today</span>
+            
+            <div class="timeline-item donation">
+                <div class="timeline-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-info">
+                        <h3>Donated Paracetamol 500mg</h3>
+                        <p>Handed over to <strong>Gorakhpur NGO Center</strong></p>
+                    </div>
+                    <div class="timeline-meta">
+                        <span class="time">12:45 PM</span>
+                        <span class="points">+50 points</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-group">
+            <span class="timeline-date">Yesterday</span>
+            
+            <div class="timeline-item request">
+                <div class="timeline-icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-info">
+                        <h3>Request Fulfilled: Insulin</h3>
+                        <p>Medicine picked up by you from <strong>City Hub</strong></p>
+                    </div>
+                    <div class="timeline-meta">
+                        <span class="time">03:20 PM</span>
+                        <span class="tag">Request</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-group">
+            <span class="timeline-date">20 Feb 2026</span>
+            
+            <div class="timeline-item donation">
+                <div class="timeline-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-info">
+                        <h3>Donated Vitamin C Strips</h3>
+                        <p>Verification successful. Distributed to community.</p>
+                    </div>
+                    <div class="timeline-meta">
+                        <span class="time">10:00 AM</span>
+                        <span class="points">+20 points</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
