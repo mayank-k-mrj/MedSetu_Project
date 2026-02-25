@@ -22,8 +22,8 @@ public class MedicineEntity {
 //    @Column(name = "expiryDate", nullable = false)
     private LocalDate expiryDate;
 
-//    @Column(name = "batchNumber", nullable = false)
-    private String batchNumber;
+//    @Column(name = "quantity", nullable = false)
+    private Long quantity;
 
     @Column(name = "imageUrl", nullable = false)
     private String imageUrl;
@@ -44,10 +44,10 @@ public class MedicineEntity {
     public MedicineEntity() {
     }
 
-    public MedicineEntity(String name, LocalDate expiryDate, String batchNumber, String imageUrl, LocalDateTime createdAt) {
+    public MedicineEntity(String name, LocalDate expiryDate, Long quantity, String imageUrl, LocalDateTime createdAt) {
         this.name = name;
         this.expiryDate = expiryDate;
-        this.batchNumber = batchNumber;
+        this.quantity = quantity;
         this.imageUrl = imageUrl;
         this.createdAt = createdAt;
     }
@@ -92,12 +92,12 @@ public class MedicineEntity {
         this.imageUrl = imageUrl;
     }
 
-    public String getBatchNumber() {
-        return batchNumber;
+    public Long getQuantity() {
+        return quantity;
     }
 
-    public void setBatchNumber(String batchNumber) {
-        this.batchNumber = batchNumber;
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
     }
 
     public LocalDate getExpiryDate() {

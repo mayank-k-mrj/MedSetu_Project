@@ -59,14 +59,18 @@ public class DonationServiceImp implements DonationService{
         if (medicine.getValidationStatus() != ValidationStatus.VALID) {
             return false;
         }
+
         UsersEntity user = usersRepository.findByUsername(username)
                 .orElseThrow(() ->
                         new RuntimeException("User not found with username : " + username));
 
         UsersAddressEntity address = usersAddressRepository
                 .findByUser(user)
-                .orElseThrow(() ->
-                        new RuntimeException("User address not found"));
+                .orElse(null);
+
+        if(address == null){
+            return false;   // no address → no donation
+        }
 
         Long userPincode = address.getPincode();
         String userCity = address.getCity();
@@ -75,14 +79,12 @@ public class DonationServiceImp implements DonationService{
                 .findFirstByPincode(userPincode)
                 .orElseGet(() ->
                         ngoRepository.findFirstByCity(userCity)
-                                .orElseGet(() ->
-                                        ngoRepository.findAll()
-                                                .stream()
-                                                .findFirst()
-                                                .orElseThrow(() ->
-                                                        new RuntimeException("No NGO available"))
-                                )
+                                .orElse(null)
                 );
+
+        if(assignNGO == null){
+            return false;   // 🔥 No NGO available → no crash
+        }
 
         DonationEntity donation = new DonationEntity();
         donation.setDonor(user);

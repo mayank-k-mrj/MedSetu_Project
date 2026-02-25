@@ -57,7 +57,7 @@ async function fetchAllMedicines(){
 
             row.innerHTML = `
                 <td>${med.name}</td>
-                <td>${med.batchNumber}</td>
+                <td>${med.quantity}</td>
                 <td>${med.expiryDate}</td>
                 <td>
                     <span class="badge ${donationId?.status?.toLowerCase()}">

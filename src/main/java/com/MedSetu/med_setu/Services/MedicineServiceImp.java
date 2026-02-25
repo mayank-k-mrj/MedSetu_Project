@@ -33,18 +33,24 @@ public class MedicineServiceImp implements MedicineService{
 
     @Override
     public MedicineEntity editDetails(MedicineEntity medicineEntity, Long id){
+
         MedicineEntity updateMedicine = medicineRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Row with id "+id + " doesn't exists."));
+                .orElseThrow(() -> new RuntimeException("Row with id "+id + " doesn't exists."));
 
         updateMedicine.setImageUrl(medicineEntity.getImageUrl());
         updateMedicine.setName(medicineEntity.getName());
-        updateMedicine.setBatchNumber(medicineEntity.getBatchNumber());
+        updateMedicine.setQuantity(
+                medicineEntity.getQuantity() != null ? medicineEntity.getQuantity() : 1
+        );
         updateMedicine.setExpiryDate(medicineEntity.getExpiryDate());
 
         LocalDate today = LocalDate.now();
         LocalDate oneMonthLater = today.plusMonths(1);
 
-        if (updateMedicine.getExpiryDate().isBefore(today)) {
+        if(updateMedicine.getExpiryDate() == null){
+            updateMedicine.setValidationStatus(ValidationStatus.NOTVALID);
+        }
+        else if (updateMedicine.getExpiryDate().isBefore(today)) {
             updateMedicine.setValidationStatus(ValidationStatus.NOTVALID);
         }
         else if (updateMedicine.getExpiryDate().isBefore(oneMonthLater)) {
@@ -54,9 +60,7 @@ public class MedicineServiceImp implements MedicineService{
             updateMedicine.setValidationStatus(ValidationStatus.VALID);
         }
 
-
-        medicineRepository.save(updateMedicine);
-        return updateMedicine;
+        return medicineRepository.save(updateMedicine);
     }
 
     @Override
@@ -69,52 +73,58 @@ public class MedicineServiceImp implements MedicineService{
 
     @Override
     public MedicineEntity saveMedicine(MultipartFile file, String username){
+
         try{
+
             UsersEntity user = usersRepository.findByUsername(username)
                     .orElseThrow(() -> new RuntimeException("User not found with username : "+username));
 
-            //upload folder create
             String uploadDir = System.getProperty("user.dir") + File.separator + "uploads" + File.separator;
             File directory = new File(uploadDir);
             if(!directory.exists()){
                 directory.mkdir();
             }
 
-            //creating unique file name
             String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
             String filePath = uploadDir + filename;
 
-            //saving the file
             file.transferTo(new File(filePath));
 
-            //creating medicine entity
             MedicineEntity medicine = new MedicineEntity();
             medicine.setImageUrl(filePath);
             medicine.setUploadedby(user);
 
             String ocrText = ocrServiceImp.extractText(filePath);
-            System.out.println("===== OCR RESULT =====");
-            System.out.println(ocrText);
 
-            //extraction logic
             String name = extractMedicineName(ocrText);
-            String batch = extractBatchNumber(ocrText);
             String expiry = extractExpiryDate(ocrText);
 
             LocalDate expiryDate = convertToLocalDate(expiry);
 
             medicine.setName(name);
-            medicine.setBatchNumber(batch);
             medicine.setExpiryDate(expiryDate);
-            medicine.setValidationStatus(ValidationStatus.VALID);
 
+            // 🔥 DEFAULT QUANTITY SAFE SET
+            medicine.setQuantity(1L);
 
-            MedicineEntity saved =  medicineRepository.save(medicine);
-            return saved;
+            // 🔥 SAFE VALIDATION
+            if(expiryDate == null){
+                medicine.setValidationStatus(ValidationStatus.NOTVALID);
+            } else {
+                LocalDate today = LocalDate.now();
+                LocalDate oneMonthLater = today.plusMonths(1);
 
-        }
-        catch(Exception e){
-            System.out.println("Error occured while file handling : "+e.getMessage());
+                if (expiryDate.isBefore(oneMonthLater)) {
+                    medicine.setValidationStatus(ValidationStatus.NOTVALID);
+                } else {
+                    medicine.setValidationStatus(ValidationStatus.VALID);
+                }
+            }
+
+            return medicineRepository.save(medicine);
+
+        } catch(Exception e){
+            e.printStackTrace();
             throw new RuntimeException("Data not saved.");
         }
     }
@@ -148,23 +158,6 @@ public class MedicineServiceImp implements MedicineService{
         }
 
         return "UNKNOWN";
-    }
-
-    @Override
-    public String extractBatchNumber(String text) {
-
-        Pattern pattern = Pattern.compile(
-                "(BATCH\\s?NO\\.?|B\\.NO\\.?|BN\\:?)[^A-Z0-9]*([A-Z0-9]+)",
-                Pattern.CASE_INSENSITIVE
-        );
-
-        Matcher matcher = pattern.matcher(text);
-
-        if(matcher.find()) {
-            return matcher.group(2);
-        }
-
-        return null;
     }
 
     @Override
