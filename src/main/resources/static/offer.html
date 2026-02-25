@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Create Offer</title>
+</head>
+<body>
+
+<h2>Create Offer</h2>
+
+<form id="offerForm">
+    <label>Medicine ID:</label><br>
+    <input type="number" id="medid" required><br><br>
+
+    <label>NGO ID:</label><br>
+    <input type="number" id="ngoid" required><br><br>
+
+    <label>Price:</label><br>
+    <input type="number" id="price" required><br><br>
+
+    <button type="submit">Send Offer</button>
+</form>
+
+<h3>Response:</h3>
+<pre id="responseBox"></pre>
+
+<script>
+    document.getElementById("offerForm").addEventListener("submit", async function(e){
+        e.preventDefault();
+
+        const medid = Number(document.getElementById("medid").value);
+        const ngoid = Number(document.getElementById("ngoid").value);
+        const price = Number(document.getElementById("price").value);
+
+        try {
+            const response = await fetch("http://localhost:8080/offers/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    medid: medid,
+                    ngoid: ngoid,
+                    price: price
+                })
+            });
+
+            const result = await response.text();
+
+            document.getElementById("responseBox").innerText =
+                "Status: " + response.status + "\n\n" + result;
+
+        } catch (error) {
+            document.getElementById("responseBox").innerText =
+                "Error: " + error;
+        }
+    });
+</script>
+
+</body>;
+</html>

@@ -1,6 +1,6 @@
 let medName = document.querySelector('#med_name');
 let medExp = document.querySelector('#med_exp');
-let medBatch = document.querySelector('#med_batch');
+let medQuantity = document.querySelector('#med_quantity');
 let medImg = document.querySelector('#fileInput');
 
 const urlMain = "/medicine";
@@ -58,22 +58,21 @@ medImg.addEventListener("input", async function(e) {
 function autoFill(gotRes){
     medName.value = gotRes.name;
     medExp.value = gotRes.expiryDate;
-    medBatch.value = gotRes.batchNumber;
     urlId = gotRes.id;
     console.log("Filled");
 }
 
 async function saveDetails(e){
     e.preventDefault();
-    if(medName.value != "" && medExp.value != "" && medBatch.value != ""){
+    if(medName.value != "" && medExp.value != "" && medQuantity.value != ""){
         try{
             const finalDetails = {
                     name: medName.value,
                     expiryDate: medExp.value,
-                    batchNumber: medBatch.value,
+                    quantity: Number(medQuantity.value),
                     imageUrl: updatedImageUrl
                 }
-                let medUpdUrl = urlMain + "/" + urlId + urlUpd;
+                let medUpdUrl = "/medicine/" + urlId + "/updatemed";
                 let response = await fetch(medUpdUrl, {
                     method: "PUT",
                     headers: {

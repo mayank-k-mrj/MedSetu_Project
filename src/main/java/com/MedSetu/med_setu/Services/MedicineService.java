@@ -10,7 +10,6 @@ import java.util.List;
 public interface MedicineService {
     MedicineEntity saveMedicine(MultipartFile file, String username);
     String extractMedicineName(String text);
-    String extractBatchNumber(String text);
     String extractExpiryDate(String text);
     LocalDate convertToLocalDate(String expiry);
     MedicineEntity editDetails(MedicineEntity medicineEntity, Long id);
