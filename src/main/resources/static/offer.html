@@ -1,60 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Test Create Offer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Offer | PharmaConnect</title>
+    <link rel="stylesheet" href="offer.css">
 </head>
 <body>
 
-<h2>Create Offer</h2>
+<div class="container">
+    <h2>Create Offer</h2>
 
-<form id="offerForm">
-    <label>Medicine ID:</label><br>
-    <input type="number" id="medid" required><br><br>
+    <form id="offerForm">
+        <div class="form-group">
+            <label for="medid">Medicine ID</label>
+            <input type="number" id="medid" placeholder="e.g. 101" required>
+        </div>
 
-    <label>NGO ID:</label><br>
-    <input type="number" id="ngoid" required><br><br>
+        <div class="form-group">
+            <label for="ngoid">NGO ID</label>
+            <input type="number" id="ngoid" placeholder="e.g. 5002" required>
+        </div>
 
-    <label>Price:</label><br>
-    <input type="number" id="price" required><br><br>
+        <div class="form-group">
+            <label for="price">Price (INR)</label>
+            <input type="number" id="price" placeholder="0.00" step="0.01" required>
+        </div>
 
-    <button type="submit">Send Offer</button>
-</form>
+        <button type="submit" id="submitBtn">Send Offer</button>
+    </form>
 
-<h3>Response:</h3>
-<pre id="responseBox"></pre>
+    <div id="responseContainer">
+        <pre id="responseBox"></pre>
+    </div>
+</div>
 
 <script>
-    document.getElementById("offerForm").addEventListener("submit", async function(e){
+    const form = document.getElementById("offerForm");
+    const btn = document.getElementById("submitBtn");
+    const respContainer = document.getElementById("responseContainer");
+    const respBox = document.getElementById("responseBox");
+
+    form.addEventListener("submit", async function(e){
         e.preventDefault();
 
-        const medid = Number(document.getElementById("medid").value);
-        const ngoid = Number(document.getElementById("ngoid").value);
-        const price = Number(document.getElementById("price").value);
+        // Visual Feedback
+        btn.disabled = true;
+        btn.innerText = "Sending...";
+        respContainer.style.display = "none";
+
+        const payload = {
+            medid: Number(document.getElementById("medid").value),
+            ngoid: Number(document.getElementById("ngoid").value),
+            price: Number(document.getElementById("price").value)
+        };
 
         try {
             const response = await fetch("http://localhost:8080/offers/create", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    medid: medid,
-                    ngoid: ngoid,
-                    price: price
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
             });
 
             const result = await response.text();
-
-            document.getElementById("responseBox").innerText =
-                "Status: " + response.status + "\n\n" + result;
+            
+            // Style response based on status
+            respContainer.style.display = "block";
+            respContainer.style.borderLeftColor = response.ok ? "#10b981" : "#ef4444";
+            
+            respBox.innerText = `Status: ${response.status}\n\n${result}`;
 
         } catch (error) {
-            document.getElementById("responseBox").innerText =
-                "Error: " + error;
+            respContainer.style.display = "block";
+            respContainer.style.borderLeftColor = "#ef4444";
+            respBox.innerText = "Error connecting to server. Is the backend running?";
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "Send Offer";
         }
     });
 </script>
 
-</body>;
+</body>
 </html>

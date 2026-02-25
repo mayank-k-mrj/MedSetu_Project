@@ -140,3 +140,17 @@ td { padding: 18px 15px; border-bottom: 1px solid #f9f9f9; }
 
 .approved { background: #e8f5e9; color: #2e7d32; }
 .pending { background: #fff3e0; color: #ef6c00; }
+
+/* Direct targeting of the classes in JS */
+.badge.approved {
+    background-color: #ec7a1c;
+    color: white; /* Text readability ke liye */
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.badge.PENDING {
+    background-color: #ffa500; /* Orange hex code */
+    color: white;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Requests - MedSetu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="myReq.css">
+</head>
+<body>
+
+<div class="main-content">
+    <div class="page-header">
+        <div>
+            <h1>My Medicine Requests</h1>
+            <p>Manage and track the status of medicines you have requested.</p>
+        </div>
+        <button class="request-btn" href="newDonation.html">
+            <i class="fas fa-hand-holding-medical"></i> Create New Request
+        </button>
+    </div>
+
+    <div class="request-grid">
+        <div class="request-card">
+            <div class="card-tag urgent">High Priority</div>
+            <h3>Insulin Glargine</h3>
+            <p class="qty">Quantity: 2 Vials</p>
+            <div class="status-timeline">
+                <div class="step completed"></div>
+                <div class="step active"></div>
+                <div class="step"></div>
+            </div>
+            <p class="status-text">Searching for donors near <strong>Gorakhpur</strong>...</p>
+        </div>
+
+        <div class="request-card">
+            <div class="card-tag matched">Donor Found</div>
+            <h3>Amoxicillin 250mg</h3>
+            <p class="qty">Quantity: 1 Strip</p>
+            <div class="status-timeline">
+                <div class="step completed"></div>
+                <div class="step completed"></div>
+                <div class="step active"></div>
+            </div>
+            <p class="status-text">Medicine is at <strong>City NGO Hub</strong> for verification.</p>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-header">
+            <h2>Request History</h2>
+        </div>
+        <table class="request-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Medicine</th>
+                    <th>Required By</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Feb 24, 2026</td>
+                    <td><strong>Telmisartan 40mg</strong></td>
+                    <td>Feb 28, 2026</td>
+                    <td><span class="badge badge-process">Processing</span></td>
+                    <td><button class="btn-outline">Cancel</button></td>
+                </tr>
+                <tr>
+                    <td>Feb 15, 2026</td>
+                    <td><strong>Vitamin D3</strong></td>
+                    <td>Expired</td>
+                    <td><span class="badge badge-success">Fulfilled</span></td>
+                    <td><button class="btn-outline">Re-request</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

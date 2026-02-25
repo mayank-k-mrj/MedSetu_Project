@@ -1,0 +1,130 @@
+:root {
+    --primary-blue: #007bff;
+    --donation-color: #2ecc71;
+    --request-color: #3498db;
+    --text-grey: #7f8c8d;
+    --bg-white: #ffffff;
+    --border-color: #edf2f7;
+}
+
+body {
+    background-color: #f7fafc;
+    font-family: 'Inter', sans-serif;
+    padding: 40px 20px;
+}
+
+.history-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.history-header h1 { font-size: 24px; color: #2d3748; }
+
+/* Filter Buttons */
+.history-filters {
+    background: #e2e8f0;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    gap: 5px;
+} 
+
+.filter-btn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #4a5568;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.filter-btn:hover {
+    background: var(--bg-white);
+    color: var(--primary-blue);
+    background: rgba(160, 160, 206, 0.221);
+    transition: 0.5s;
+   
+}
+
+/* Timeline Layout */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--border-color);
+}
+
+.timeline-group { margin-bottom: 30px; }
+
+.timeline-date {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-grey);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    background: #f7fafc;
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-item {
+    background: var(--bg-white);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+/* Circles on the line */
+.timeline-icon {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    z-index: 2;
+}
+
+.donation .timeline-icon { background: #e6fffa; color: var(--donation-color); }
+.request .timeline-icon { background: #ebf8ff; color: var(--request-color); }
+
+.timeline-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.timeline-info h3 { margin: 0; font-size: 16px; color: #1a202c; }
+.timeline-info p { margin: 5px 0 0; font-size: 14px; color: var(--text-grey); }
+
+.timeline-meta { text-align: right; }
+.time { display: block; font-size: 12px; color: #a0aec0; }
+.points { font-size: 13px; font-weight: 600; color: var(--donation-color); }
+.tag { font-size: 12px; color: var(--request-color); background: #ebf8ff; padding: 2px 8px; border-radius: 4px; }
