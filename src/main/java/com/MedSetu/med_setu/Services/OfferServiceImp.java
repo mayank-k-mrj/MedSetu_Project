@@ -11,6 +11,8 @@ import com.MedSetu.med_setu.Repository.OfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OfferServiceImp implements OfferService{
 
@@ -45,5 +47,11 @@ public class OfferServiceImp implements OfferService{
         offers.setNgo(ngo_row);
 
         return offerRepository.save(offers);
+    }
+
+    @Override
+    public List<OffersEntity> getAllOffers(Long medicine){
+
+        return offerRepository.findAllByMedicineId(medicine);
     }
 }

@@ -25,7 +25,7 @@ public class OffersEntity {
     @Column(nullable = false)
     private Status status;
 
-    private String medStat = "NOTSOLD";
+    private String medStat = "AVAILABLE";
 
     @CreationTimestamp
     private LocalDateTime created_at;
