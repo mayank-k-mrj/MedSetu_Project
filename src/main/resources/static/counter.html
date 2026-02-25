@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bargain Portal | MedSetu</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border: 1px solid #e0e0e0; }
+        h2 { color: #2d3436; text-align: center; margin-bottom: 25px; font-weight: 700; }
+
+        .current-price-box { background: linear-gradient(135deg, #fff9db 0%, #fff3bf 100%); border: 1px solid #ffe066; border-radius: 15px; padding: 20px; margin-bottom: 30px; text-align: center; }
+        .price-label { color: #868e96; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; font-weight: 600; }
+        .price-value { color: #2d3436; font-size: 32px; font-weight: 800; margin: 0; }
+
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; font-weight: 600; color: #495057; }
+        input { width: 100%; padding: 14px; border: 2px solid #e9ecef; border-radius: 12px; box-sizing: border-box; font-size: 16px; transition: all 0.3s; }
+        input:focus { border-color: #fab005; outline: none; box-shadow: 0 0 0 4px rgba(250, 176, 5, 0.1); }
+
+        button { width: 100%; padding: 15px; background: #fab005; color: white; border: none; border-radius: 12px; font-size: 17px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(250, 176, 5, 0.2); }
+        button:hover { background: #f08c00; transform: translateY(-2px); }
+        button:disabled { background: #dee2e6; cursor: not-allowed; transform: none; }
+
+        #msg { margin-top: 20px; padding: 12px; border-radius: 10px; display: none; text-align: center; font-weight: 600; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Bargain Portal</h2>
+
+    <div class="current-price-box">
+        <div class="price-label">Current Active Offer</div>
+        <div class="price-value" id="activePrice">₹0</div>
+    </div>
+
+    <form id="counterForm">
+        <input type="hidden" id="offerId">
+        <div class="form-group">
+            <label for="counterPrice">Proposed New Price (INR)</label>
+            <input type="number" id="counterPrice" placeholder="Enter amount" required min="1">
+        </div>
+        <button type="submit" id="submitBtn">Update Price</button>
+    </form>
+
+    <div id="msg"></div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const offerId = urlParams.get('offerid');
+
+    // NGO ID session ya kisi method se nikalna, filhaal dummy
+    const ngoId = 1;
+
+    // Price fetch karke dikhane ka logic
+    async function loadCurrentPrice() {
+        if(!offerId) return;
+        document.getElementById("offerId").value = offerId;
+
+        try {
+            // Tumhare controller ka sahi endpoint
+            const response = await fetch(`/offers/${ngoId}/allbyngo`);
+            if (response.ok) {
+                const allOffers = await response.json();
+                const myOffer = allOffers.find(o => o.id == offerId);
+
+                if(myOffer) {
+                    // Logic: Agar counter_price hai toh wo dikhao, nahi toh original
+                    const currentVal = myOffer.counter_price ? myOffer.counter_price : myOffer.offered_price;
+                    document.getElementById("activePrice").innerText = "₹" + currentVal;
+                }
+            }
+        } catch (err) {
+            console.error("Fetch error", err);
+            document.getElementById("activePrice").innerText = "Error Loading";
+        }
+    }
+
+    // Submit logic with Error Handling
+    document.getElementById("counterForm").addEventListener("submit", async function(e){
+        e.preventDefault();
+        const btn = document.getElementById("submitBtn");
+        const msg = document.getElementById("msg");
+        const price = Number(document.getElementById("counterPrice").value);
+
+        btn.disabled = true;
+        btn.innerText = "Updating Database...";
+        msg.style.display = "none";
+
+        try {
+            // Service call to update counter_price
+            const response = await fetch(`/offers/${offerId}/counter`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ counterPrice: price })
+            });
+
+            if (response.ok) {
+                msg.style.display = "block";
+                msg.style.background = "#d3f9d8";
+                msg.style.color = "#2b8a3e";
+                msg.innerText = "Success! Price has been updated.";
+                setTimeout(() => window.location.href = "ngoDashboard.html", 1500);
+            } else {
+                const errorText = await response.text();
+                throw new Error(errorText || "Server rejected the update");
+            }
+        } catch (error) {
+            msg.style.display = "block";
+            msg.style.background = "#fff5f5";
+            msg.style.color = "#c92a2a";
+            msg.innerText = "Error: " + error.message;
+
+            // Fix: Button ko wapas enable karo taaki user phir se try kar sake
+            btn.disabled = false;
+            btn.innerText = "Update Price";
+        }
+    });
+
+    loadCurrentPrice();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NGO Accept Counter</title>
+</head>
+<body>
+
+<h2>NGO Accept Counter Offer</h2>
+
+<form id="acceptForm">
+    <label>Offer ID:</label><br>
+    <input type="number" id="offerId" required><br><br>
+
+    <button type="submit">Accept Counter</button>
+</form>
+
+<h3>Response:</h3>
+<pre id="responseBox"></pre>
+
+<script>
+    document.getElementById("acceptForm").addEventListener("submit", async function(e){
+        e.preventDefault();
+
+        const offerId = document.getElementById("offerId").value;
+
+        try {
+            const response = await fetch(
+                "http://localhost:8080/offers/" + offerId + "/ngo-accept",
+                {
+                    method: "PUT"
+                }
+            );
+
+            const result = await response.text();
+
+            document.getElementById("responseBox").innerText =
+                "Status: " + response.status + "\n\n" + result;
+
+        } catch (error) {
+            document.getElementById("responseBox").innerText =
+                "Error: " + error;
+        }
+    });
+</script>
+
+</body>
+</html>

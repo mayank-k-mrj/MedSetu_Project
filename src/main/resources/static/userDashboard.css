@@ -1,8 +1,142 @@
+.offer-box {
+    background: #f0f4ff;
+    border: 1px solid #d1d9ff;
+    padding: 8px;
+    border-radius: 6px;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.offer-actions { display: flex; gap: 5px; margin-top: 5px; }
+.btn-sm { padding: 4px 8px; border: none; border-radius: 4px; cursor: pointer; font-size: 11px; }
+.btn-accept { background: #28a745; color: white; }
+.btn-bargain { background: #ffc107; color: black; }
+.btn-reject { background: #dc3545; color: white; }
+.badge.sold { background-color: #e2e2e2; color: #666; }
+.badge.available { background-color: #d4edda; color: #155724; }
+
 :root {
     --primary: #007bff;
     --sidebar-bg: #ffffff;
     --body-bg: #f3f4f7;
     --text-main: #2d3436;
+}
+
+/* Offers Section Styling */
+.offers-list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.offer-card {
+    background: #f8faff;
+    border: 1px solid #e0e7ff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.offer-card p {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: #444;
+}
+
+.offer-btns {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* User Dashboard Buttons */
+.u-btn {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.u-btn.accept {
+    background-color: #22c55e;
+    color: white;
+}
+
+.u-btn.accept:hover {
+    background-color: #16a34a;
+}
+
+.u-btn.bargain {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.u-btn.bargain:hover {
+    background-color: #d97706;
+}
+
+.u-btn.reject {
+    background-color: #ef4444;
+    color: white;
+}
+
+.u-btn.reject:hover {
+    background-color: #dc2626;
+}
+
+/* Offer Status Text */
+.status-accepted {
+    color: #16a34a;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 5px;
+    background: #f0fdf4;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.status-rejected {
+    color: #dc2626;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* Badge Colors based on status */
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge.available {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.badge.sold {
+    background-color: #f1f5f9;
+    color: #475569;
+}
+
+.badge.pending {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+/* Responsive Table Adjustment */
+td {
+    vertical-align: top; /* Taaki offers name ke niche sahi dikhein */
+    padding: 15px 10px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }

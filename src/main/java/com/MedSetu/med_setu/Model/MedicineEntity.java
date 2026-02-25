@@ -1,5 +1,7 @@
 package com.MedSetu.med_setu.Model;
 
+import com.MedSetu.med_setu.DTO.ProductStatus;
+import com.MedSetu.med_setu.DTO.Status;
 import com.MedSetu.med_setu.DTO.ValidationStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -31,6 +33,9 @@ public class MedicineEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "validationStatus", nullable = false)
     private ValidationStatus validationStatus;
+
+    @Enumerated(EnumType.STRING)
+    private ProductStatus productStatus = ProductStatus.AVAILABLE;
 
     @CreationTimestamp
     @Column(name = "createdAt", nullable = false)
@@ -114,5 +119,13 @@ public class MedicineEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ProductStatus getStatus() {
+        return productStatus;
+    }
+
+    public void setStatus(ProductStatus productStatus) {
+        this.productStatus = productStatus;
     }
 }

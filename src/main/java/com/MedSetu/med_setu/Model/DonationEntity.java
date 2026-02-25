@@ -20,19 +20,21 @@ public class DonationEntity {
     @Column(nullable = false)
     private Status status;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToOne
+    // Ye puraane wale hata dena (jisme WRITE_ONLY laga hai) aur inko laga dena:
+
+    @ManyToOne
     @JoinColumn(name = "medicine_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"uploadedby"})
     private MedicineEntity medicine;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "donor_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"password", "donations", "role"})
     private UsersEntity donor;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "ngo_id")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"user"})
     private NGOEntity ngo;
 
     @CreationTimestamp

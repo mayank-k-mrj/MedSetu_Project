@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface OfferRepository extends JpaRepository<OffersEntity, Long> {
     List<OffersEntity> findAllByMedicineId(Long medicine);
+    List<OffersEntity> findAllByNgo_Id(Long ngoId);
 }

@@ -3,39 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Offer | PharmaConnect</title>
+    <title>Create Offer | MedSetu</title>
     <link rel="stylesheet" href="offer.css">
+    <style>
+        #medInfo {
+            font-size: 1.1em;
+            color: #4f46e5;
+            margin-bottom: 20px;
+            font-weight: bold;
+            background-color: #e0e7ff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
     <h2>Create Offer</h2>
 
+    <div id="medInfo"></div>
+
     <form id="offerForm">
-        <div class="form-group">
-            <label for="medid">Medicine ID</label>
-            <input type="number" id="medid" placeholder="e.g. 101" required>
-        </div>
+        <input type="hidden" id="medid" required>
+        <input type="hidden" id="ngoid" required>
 
         <div class="form-group">
-            <label for="ngoid">NGO ID</label>
-            <input type="number" id="ngoid" placeholder="e.g. 5002" required>
-        </div>
-
-        <div class="form-group">
-            <label for="price">Price (INR)</label>
-            <input type="number" id="price" placeholder="0.00" step="0.01" required>
+            <label for="price">Your Price (INR)</label>
+            <input type="number" id="price" placeholder="Enter your offer price" step="0.01" required>
         </div>
 
         <button type="submit" id="submitBtn">Send Offer</button>
     </form>
 
-    <div id="responseContainer">
-        <pre id="responseBox"></pre>
+    <div id="responseContainer" style="display: none; padding: 10px; margin-top: 15px; border-left: 4px solid; background: #f9f9f9;">
+        <p id="responseBox" style="margin: 0; font-weight: 500;"></p>
     </div>
 </div>
 
 <script>
+    // URL se data nikal kar hidden form inputs me dalna
+    document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const medId = urlParams.get('medid');
+        const ngoId = urlParams.get('ngoid');
+        const medName = urlParams.get('name');
+        const medQty = urlParams.get('qty');
+
+        // Hidden inputs me value daal do
+        if(medId) document.getElementById('medid').value = medId;
+        if(ngoId) document.getElementById('ngoid').value = ngoId;
+
+        // UI pe sirf naam aur quantity dikhao
+        if(medName && medQty) {
+            document.getElementById('medInfo').innerText = `Offering for: ${medName} (${medQty} units)`;
+        }
+    });
+
     const form = document.getElementById("offerForm");
     const btn = document.getElementById("submitBtn");
     const respContainer = document.getElementById("responseContainer");
@@ -44,42 +70,57 @@
     form.addEventListener("submit", async function(e){
         e.preventDefault();
 
+        const medid = document.getElementById("medid").value;
+        const ngoid = document.getElementById("ngoid").value;
+        const price = Number(document.getElementById("price").value);
+
         // Visual Feedback
         btn.disabled = true;
         btn.innerText = "Sending...";
         respContainer.style.display = "none";
 
+        // Yahan Payload bhej rahe ho, par URL mein ID honi chahiye
         const payload = {
-            medid: Number(document.getElementById("medid").value),
-            ngoid: Number(document.getElementById("ngoid").value),
-            price: Number(document.getElementById("price").value)
+            medid: Number(medid),
+            ngoid: Number(ngoid),
+            price: price
         };
 
         try {
-            const response = await fetch("http://localhost:8080/offers/create", {
+            // FIX: Controller ke @PostMapping("/{medid}/{ngoid}create") ke hisaab se URL banaya
+            const response = await fetch(`/offers/${medid}/${ngoid}create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
 
-            const result = await response.text();
-            
-            // Style response based on status
             respContainer.style.display = "block";
-            respContainer.style.borderLeftColor = response.ok ? "#10b981" : "#ef4444";
-            
-            respBox.innerText = `Status: ${response.status}\n\n${result}`;
+
+            if (response.ok) {
+                respContainer.style.borderLeftColor = "#10b981";
+                respBox.style.color = "#10b981";
+                respBox.innerText = "Offer created successfully! Redirecting back...";
+
+                setTimeout(() => {
+                    window.location.href = "ngoDashboard.html";
+                }, 1500);
+            } else {
+                // Agar sach mein status 400 ya 500 hai tabhi ye dikhayega
+                respContainer.style.borderLeftColor = "#ef4444";
+                respBox.style.color = "#ef4444";
+                respBox.innerText = "Error: DB update failed or Offer already exists.";
+            }
 
         } catch (error) {
             respContainer.style.display = "block";
             respContainer.style.borderLeftColor = "#ef4444";
-            respBox.innerText = "Error connecting to server. Is the backend running?";
+            respBox.style.color = "#ef4444";
+            respBox.innerText = "Network error. Please try again later.";
         } finally {
             btn.disabled = false;
             btn.innerText = "Send Offer";
         }
     });
 </script>
-
 </body>
 </html>

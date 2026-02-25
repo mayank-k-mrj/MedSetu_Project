@@ -7,111 +7,152 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="ngoDashboard.css">
+    <style>
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        .action-btn { border: none; padding: 6px 12px; cursor: pointer; border-radius: 4px; margin-right: 5px; color: white; font-weight: bold;}
+        .btn-success { background-color: #28a745; }
+        .btn-danger { background-color: #dc3545; }
+        .btn-info { background-color: #17a2b8; }
+        /* Modal Styling jo tumne miss kar di */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background-color: #fff; margin: 10% auto; padding: 20px; border-radius: 8px; width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close-btn:hover { color: black; }
+        .btn-warning { background-color: #ffc107; color: #000; }
+    </style>
 </head>
 <body>
-    <div class="dashboard-wrapper">
-        <nav class="sidebar">
-            <div class="sidebar-brand">
-                <i class="fas fa-hospital-user"></i>
-                <span>MedSetu NGO</span>
+<div class="dashboard-wrapper">
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-hospital-user"></i>
+            <span id="sidebar-ngo-name">MedSetu NGO</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="switchTab('overviewTab', this)"><a href="#"><i class="fas fa-chart-pie"></i> Overview</a></li>
+            <li class="nav-item" onclick="switchTab('verificationsTab', this)"><a href="#"><i class="fas fa-check-circle"></i> Verifications</a></li>
+            <li class="nav-item" onclick="switchTab('inventoryTab', this)"><a href="#"><i class="fas fa-boxes"></i> Inventory</a></li>
+            <li class="nav-item" onclick="switchTab('offersTab', this)"><a href="#"><i class="fas fa-handshake"></i> Offers</a></li>
+            <li class="nav-item logout"><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div class="welcome-msg">
+                <h1 id="header-ngo-name">Organization Panel</h1>
+                <p>Manage medicine donations, inventory, and offers.</p>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item active"><a href="#"><i class="fas fa-chart-pie"></i> Overview</a></li>
-                <li class="nav-item"><a href="#"><i class="fas fa-check-circle"></i> Verifications</a></li>
-                <li class="nav-item"><a href="#"><i class="fas fa-boxes"></i> Inventory</a></li>
-                <li class="nav-item"><a href="#"><i class="fas fa-users"></i> Beneficiaries</a></li>
-                <li class="nav-item logout"><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
-        </nav>
+            <div class="verification-badge">
+                <i class="fas fa-shield-alt"></i> Verified NGO
+            </div>
+        </header>
 
-        <main class="main-content">
-            <header class="dashboard-header">
-                <div class="welcome-msg">
-                    <h1>Organization Panel</h1>
-                    <p>Manage medicine donations and verify safety standards.</p>
-                </div>
-                <div class="verification-badge">
-                    <i class="fas fa-shield-alt"></i> Verified NGO
-                </div>
-            </header>
-
-            <section class="stats-row">
+        <section id="overviewTab" class="content-section active">
+            <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-icon purple-bg"><i class="fas fa-pills"></i></div>
-                    <div class="stat-data"><h3>450</h3><p>Stock Units</p></div>
+                    <div class="stat-data"><h3 id="stat-stock">0</h3><p>Stock Units (Accepted)</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon orange-bg"><i class="fas fa-hourglass-half"></i></div>
-                    <div class="stat-data"><h3>12</h3><p>Pending Verif.</p></div>
+                    <div class="stat-data"><h3 id="stat-pending">0</h3><p>Pending Verifications</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon green-bg"><i class="fas fa-hand-holding-heart"></i></div>
-                    <div class="stat-data"><h3>89</h3><p>Distributions</p></div>
+                    <div class="stat-data"><h3 id="stat-distributions">0</h3><p>Distributions</p></div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="activity-section">
-                <div class="section-header">
-                    <h2>Pending Verification Queue</h2>
-                </div>
+        <section id="verificationsTab" class="content-section">
+            <div class="activity-section">
+                <div class="section-header"><h2>Pending Verification Queue</h2></div>
                 <div class="table-container">
                     <table>
                         <thead>
-                            <tr>
-                                <th>Donor Name</th>
-                                <th>Medicine</th>
-                                <th>Expiry</th>
-                                <th>Documents</th>
-                                <th>Action</th>
-                            </tr>
+                        <tr>
+                            <th>Donor Name</th>
+                            <th>Medicine</th>
+                            <th>Qty</th>
+                            <th>Expiry</th>
+                            <th>Doc</th>
+                            <th>Action</th>
+                        </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Sahil Singh</td>
-                                <td>Azithromycin</td>
-                                <td>Dec 2026</td>
-                                <td><a href="#" class="view-doc">View Image</a></td>
-                                <td>
-                                    <button class="btn-action approve">Approve</button>
-                                    <button class="btn-action reject">Reject</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Shivam Kumar</td>
-                                <td>Insulin Pen</td>
-                                <td>Aug 2026</td>
-                                <td><a href="#" class="view-doc">View Image</a></td>
-                                <td>
-                                    <button class="btn-action approve">Approve</button>
-                                    <button class="btn-action reject">Reject</button>
-                                </td>
-                            </tr>
+                        <tbody id="pending-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="inventoryTab" class="content-section">
+            <div class="activity-section">
+                <div class="section-header"><h2>Current Inventory</h2></div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Qty</th>
+                            <th>Expiry</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="inventory-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="offersTab" class="content-section">
+            <div class="activity-section">
+                <div class="section-header"><h2>Medicine Offers</h2></div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Offered</th>
+                            <th>Counter</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="offers-tbody">
+                        <tr><td colspan="5" style="text-align:center;">No offers yet.</td></tr>
                         </tbody>
                     </table>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+    </main>
+</div>
+<div id="bargainModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Negotiate Price</h2>
+        <p style="margin-top: 10px; color: #555;">Medicine: <strong id="modal-med-name">-</strong></p>
+
+        <div class="form-group" style="margin-top: 15px;">
+            <label><strong>Offer / Counter Price (₹):</strong></label>
+            <input type="number" id="bargain-price" placeholder="Enter amount" style="width: 95%; padding: 8px; margin-top: 8px; border-radius: 4px; border: 1px solid #ccc;">
+
+            <input type="hidden" id="modal-target-id">
+            <input type="hidden" id="modal-action-type"> </div>
+
+        <div style="margin-top: 20px; text-align: right;">
+            <button class="action-btn btn-danger" onclick="closeModal()">Cancel</button>
+            <button class="action-btn btn-success" onclick="submitBargain()">Send <i class="fas fa-paper-plane"></i></button>
+        </div>
     </div>
+</div>
+<button class="action-btn btn-warning" onclick="openModal(101, 'Paracetamol', 'createOffer')">
+    <i class="fas fa-hand-holding-usd"></i> Bargain
+</button>
+
+<script src="ngoDashboard.js"></script>
 </body>
-<script>
-    async function getUserProf(){
-        let profileStat;
-        const Response = await fetch("/users/activeuser");
-        if (Response.ok){
-            let user = await Response.json();
-            console.log(user);
-            profileStat = user.profilecomplete;
-        }
-        else{
-        console.log("Something went wrong!");
-        }
-        if(!profileStat){
-            setTimeout(() => {
-                window.location.href = "ngo_regi.html";
-                }, 500);
-            }
-    }
-    // page load hote hi chale
-    window.addEventListener("DOMContentLoaded", getUserProf);
-</script>
 </html>

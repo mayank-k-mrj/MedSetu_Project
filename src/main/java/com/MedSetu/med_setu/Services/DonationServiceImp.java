@@ -54,47 +54,62 @@ public class DonationServiceImp implements DonationService{
     }
 
     @Override
-    public Boolean createRow(MedicineEntity medicine, String username){
+    public Boolean createRow(MedicineEntity medicine, String username) {
+        try {
+            // 1. Get the Donor (User)
+            UsersEntity user = usersRepository.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("User not found with username : " + username));
 
-        if (medicine.getValidationStatus() != ValidationStatus.VALID) {
-            return false;
+            NGOEntity assignedNgo = null;
+
+            try {
+                // 2. Try to get user address to find NGO in the same city
+                Optional<UsersAddressEntity> addressOpt = usersAddressRepository.findByUserId(user.getId());
+
+                if (addressOpt.isPresent()) {
+                    String userCity = addressOpt.get().getCity();
+
+                    // Case-insensitive city matching
+                    List<NGOEntity> allNgos = ngoRepository.findAll();
+                    for (NGOEntity ngo : allNgos) {
+                        if (ngo.getCity() != null && ngo.getCity().equalsIgnoreCase(userCity)) {
+                            assignedNgo = ngo;
+                            break; // City match ho gayi
+                        }
+                    }
+                }
+            } catch (Exception addrEx) {
+                System.out.println("Address Warning: " + addrEx.getMessage());
+            }
+
+            // 3. Fallback: Agar User ki city me NGO nahi hai, toh DB ka Pehla NGO assign kar do
+            if (assignedNgo == null) {
+                List<NGOEntity> allNgos = ngoRepository.findAll();
+                if (!allNgos.isEmpty()) {
+                    assignedNgo = allNgos.get(0);
+                } else {
+                    throw new RuntimeException("CRITICAL: Koi bhi NGO database me registered nahi hai!");
+                }
+            }
+
+            // 4. Create and Save the Donation Row
+            DonationEntity donationEntity = new DonationEntity();
+            donationEntity.setDonor(user);
+            donationEntity.setMedicine(medicine);
+            donationEntity.setStatus(Status.PENDING);
+            donationEntity.setNgo(assignedNgo);
+
+            donationRepository.save(donationEntity);
+            System.out.println("SUCCESS: Donation linked to NGO -> " + assignedNgo.getNgoname());
+
+            return true;
+
+        } catch (Exception e) {
+            System.err.println("ERROR while assigning NGO / creating donation: " + e.getMessage());
+            e.printStackTrace(); // Exact error console me dikhayega
         }
 
-        UsersEntity user = usersRepository.findByUsername(username)
-                .orElseThrow(() ->
-                        new RuntimeException("User not found with username : " + username));
-
-        UsersAddressEntity address = usersAddressRepository
-                .findByUser(user)
-                .orElse(null);
-
-        if(address == null){
-            return false;   // no address → no donation
-        }
-
-        Long userPincode = address.getPincode();
-        String userCity = address.getCity();
-
-        NGOEntity assignNGO = ngoRepository
-                .findFirstByPincode(userPincode)
-                .orElseGet(() ->
-                        ngoRepository.findFirstByCity(userCity)
-                                .orElse(null)
-                );
-
-        if(assignNGO == null){
-            return false;   // 🔥 No NGO available → no crash
-        }
-
-        DonationEntity donation = new DonationEntity();
-        donation.setDonor(user);
-        donation.setMedicine(medicine);
-        donation.setNgo(assignNGO);
-        donation.setStatus(Status.PENDING);
-
-        donationRepository.save(donation);
-
-        return true;
+        return false;
     }
 
     @Override

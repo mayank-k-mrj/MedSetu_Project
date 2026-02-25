@@ -1,5 +1,6 @@
 package com.MedSetu.med_setu.Model;
 
+import com.MedSetu.med_setu.DTO.OfferStatus;
 import com.MedSetu.med_setu.DTO.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -23,7 +24,7 @@ public class OffersEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;
+    private OfferStatus status;
 
     private String medStat = "AVAILABLE";
 
@@ -40,7 +41,6 @@ public class OffersEntity {
     @JoinColumn(name = "donor_id", nullable = false)
     private UsersEntity donor;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "ngo_id")
     private NGOEntity ngo;
@@ -48,11 +48,15 @@ public class OffersEntity {
     public OffersEntity() {
     }
 
-    public OffersEntity(String name, Double offered_price, Double counter_price, Status status) {
+    public OffersEntity(String name, Double offered_price, Double counter_price, OfferStatus status) {
         this.name = name;
         this.offered_price = offered_price;
         this.counter_price = counter_price;
         this.status = status;
+    }
+
+    public Long getNgoId() {
+        return (ngo != null) ? ngo.getId() : null;
     }
 
     public Long getId() {
@@ -95,11 +99,11 @@ public class OffersEntity {
         this.created_at = created_at;
     }
 
-    public Status getStatus() {
+    public OfferStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(OfferStatus status) {
         this.status = status;
     }
 
@@ -125,5 +129,13 @@ public class OffersEntity {
 
     public void setNgo(NGOEntity ngo) {
         this.ngo = ngo;
+    }
+
+    public String getMedStat() {
+        return medStat;
+    }
+
+    public void setMedStat(String medStat) {
+        this.medStat = medStat;
     }
 }
