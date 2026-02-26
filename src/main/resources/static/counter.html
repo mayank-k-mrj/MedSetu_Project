@@ -59,14 +59,12 @@
         document.getElementById("offerId").value = offerId;
 
         try {
-            // Tumhare controller ka sahi endpoint
             const response = await fetch(`/offers/${ngoId}/allbyngo`);
             if (response.ok) {
                 const allOffers = await response.json();
                 const myOffer = allOffers.find(o => o.id == offerId);
 
                 if(myOffer) {
-                    // Logic: Agar counter_price hai toh wo dikhao, nahi toh original
                     const currentVal = myOffer.counter_price ? myOffer.counter_price : myOffer.offered_price;
                     document.getElementById("activePrice").innerText = "₹" + currentVal;
                 }
@@ -77,7 +75,7 @@
         }
     }
 
-    // Submit logic with Error Handling
+    // Submit logic with Dynamic Redirect
     document.getElementById("counterForm").addEventListener("submit", async function(e){
         e.preventDefault();
         const btn = document.getElementById("submitBtn");
@@ -89,7 +87,6 @@
         msg.style.display = "none";
 
         try {
-            // Service call to update counter_price
             const response = await fetch(`/offers/${offerId}/counter`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -101,7 +98,19 @@
                 msg.style.background = "#d3f9d8";
                 msg.style.color = "#2b8a3e";
                 msg.innerText = "Success! Price has been updated.";
-                setTimeout(() => window.location.href = "ngoDashboard.html", 1500);
+
+                // --- DYNAMIC REDIRECT LOGIC ---
+                setTimeout(() => {
+                    // Check user kahan se aaya tha
+                    const backTo = document.referrer;
+                    if (backTo.includes("userDashboard.html")) {
+                        window.location.href = "userDashboard.html";
+                    } else {
+                        window.location.href = "ngoDashboard.html";
+                    }
+                }, 1500);
+                // ------------------------------
+
             } else {
                 const errorText = await response.text();
                 throw new Error(errorText || "Server rejected the update");
@@ -111,8 +120,6 @@
             msg.style.background = "#fff5f5";
             msg.style.color = "#c92a2a";
             msg.innerText = "Error: " + error.message;
-
-            // Fix: Button ko wapas enable karo taaki user phir se try kar sake
             btn.disabled = false;
             btn.innerText = "Update Price";
         }

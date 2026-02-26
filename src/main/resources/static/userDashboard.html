@@ -9,69 +9,127 @@
     <link rel="stylesheet" href="userDashboard.css">
 </head>
 <body>
-    <div class="dashboard-wrapper">
-        <nav class="sidebar">
-            <div class="sidebar-brand">
-                <i class="fas fa-hand-holding-medical"></i>
-                <span>MedSetu</span>
+<div class="dashboard-wrapper">
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-hand-holding-medical"></i>
+            <span>MedSetu</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="switchUserTab('tab-overview', this)"><a href="#"><i class="fas fa-columns"></i> Overview</a></li>
+            <li class="nav-item" onclick="switchUserTab('tab-donations', this)"><a href="#"><i class="fas fa-pills"></i> My Donations</a></li>
+            <li class="nav-item" onclick="switchUserTab('tab-requests', this)"><a href="#"><i class="fas fa-hands-helping"></i> My Requests</a></li>
+            <li class="nav-item" onclick="switchUserTab('tab-history', this)"><a href="#"><i class="fas fa-history"></i> History</a></li>
+            <li class="nav-item logout"><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div class="welcome-msg">
+                <h1>Dashboard Overview</h1>
+                <p>Welcome back, <strong id="user_name">Adarsh Yadav</strong>! Here is your activity.</p>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item active"><a href="#"><i class="fas fa-columns"></i> Overview</a></li>
-                <li class="nav-item"><a href="#"><i class="fas fa-pills"></i> My Donations</a></li>
-                <li class="nav-item"><a href="#"><i class="fas fa-hands-helping"></i> My Requests</a></li>
-                <li class="nav-item"><a href="#"><i class="fas fa-history"></i> History</a></li>
-                <li class="nav-item logout"><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
-        </nav>
+            <button class="add-donation-btn" id="donation">
+                <i class="fas fa-plus"></i> New Donation
+            </button>
+        </header>
 
-        <main class="main-content">
-            <header class="dashboard-header">
-                <div class="welcome-msg">
-                    <h1>Dashboard Overview</h1>
-                    <p>Welcome back, <strong id="user_name">Adarsh Yadav</strong>! Here is your activity.</p>
-                </div>
-                <button class="add-donation-btn" id="donation">
-                    <i class="fas fa-plus"></i> New Donation
-                </button>
-            </header>
-
+        <div id="tab-overview" class="content-section" style="display: block;">
             <section class="stats-row">
                 <div class="stat-card">
                     <div class="stat-icon blue-bg"><i class="fas fa-gift"></i></div>
-                    <div class="stat-data"><h3>14</h3><p>Donations</p></div>
+                    <div class="stat-data"><h3 id="stat-total">0</h3><p>Total Donations</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon red-bg"><i class="fas fa-clock"></i></div>
-                    <div class="stat-data"><h3 id="pending_count">2</h3><p>Pending</p></div>
+                    <div class="stat-data"><h3 id="pending_count">0</h3><p>Pending</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon green-bg"><i class="fas fa-check-circle"></i></div>
-                    <div class="stat-data"><h3>12</h3><p>Accepted</p></div>
+                    <div class="stat-data"><h3 id="stat-accepted">0</h3><p>Sold/Accepted</p></div>
                 </div>
             </section>
 
             <section class="activity-section">
                 <div class="section-header">
-                    <h2>Recent Medicine Donations</h2>
+                    <h2>Recent Medicine Donations (Overview)</h2>
                 </div>
                 <div class="table-container">
                     <table>
                         <thead>
-                            <tr>
-                                <th>Medicine Name</th>
-                                <th>Batch No.</th>
-                                <th>Expiry Date</th>
-                                <th>Status</th>
-                            </tr>
+                        <tr>
+                            <th>Medicine Name</th>
+                            <th>Quantity</th>
+                            <th>Expiry Date</th>
+                            <th>Status & Offers</th>
+                        </tr>
                         </thead>
                         <tbody id="medicineTableBody">
-
                         </tbody>
                     </table>
                 </div>
             </section>
-        </main>
-    </div>
+        </div>
+
+        <div id="tab-donations" class="content-section" style="display: none;">
+            <section class="activity-section">
+                <div class="section-header">
+                    <h2>My Active Donations</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Medicine Name</th>
+                            <th>Quantity</th>
+                            <th>Expiry Date</th>
+                            <th>Current Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="donationsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <div id="tab-history" class="content-section" style="display: none;">
+            <section class="activity-section">
+                <div class="section-header">
+                    <h2>Donation History (Sold/Completed)</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Medicine Name</th>
+                            <th>Quantity</th>
+                            <th>Expiry Date</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <div id="tab-requests" class="content-section" style="display: none;">
+            <section class="activity-section">
+                <div class="section-header">
+                    <h2>My Requests</h2>
+                </div>
+                <div style="padding: 20px; text-align: center; color: #666;">
+                    <i class="fas fa-tools fa-2x" style="margin-bottom: 10px;"></i>
+                    <p>No requests found. Feature coming soon!</p>
+                </div>
+            </section>
+        </div>
+
+    </main>
+</div>
 </body>
 <script src="userDashboard.js"></script>
 </html>

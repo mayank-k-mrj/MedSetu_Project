@@ -110,7 +110,8 @@ async function loadDonations() {
                     </tr>`;
 
             // --- TAB 2: INVENTORY (ACCEPTED/SOLD ITEMS) ---
-            } else if (donation.status === 'ACCEPTED' && inventoryTbody) {
+            // YAHAN MAINE 'SOLD' BHI ADD KIYA HAI TAAKI INVENTORY DIKHE
+            } else if ((donation.status === 'ACCEPTED' || donation.status === 'SOLD') && inventoryTbody) {
                 acceptedStock += med.quantity;
                 inventoryTbody.innerHTML += `
                     <tr>
